@@ -24,6 +24,7 @@ import pacman.controllers.examples.RandomPacMan;
 import pacman.controllers.examples.StarterGhosts;
 import pacman.controllers.examples.StarterPacMan;
 import pacman.entries.ghosts.MyGhosts;
+import pacman.entries.pacman.KatesPacMan;
 import pacman.game.Game;
 import pacman.game.GameView;
 import static pacman.game.Constants.*;
@@ -63,7 +64,7 @@ public class Executor {
 		boolean visual = true;
 		// exec.runGameTimed(new NearestPillPacMan(),new
 		// AggressiveGhosts(),visual);
-		exec.runGameTimed(new RandomPacMan(),new MyGhosts(),visual);
+		exec.runGameTimed(new KatesPacMan(), new MyGhosts(), visual);
 		// exec.runGameTimed(new HumanController(new KeyBoardInput()),new
 		// StarterGhosts(),visual);
 		// */
