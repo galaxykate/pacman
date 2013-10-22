@@ -3,13 +3,22 @@ package edu.ucsc.gameAI.hfsm;
 import java.util.Collection;
 
 import edu.ucsc.gameAI.IAction;
-import edu.ucsc.gameAI.fsm.ITransition;
 
 public interface IResult {
 	
-	Collection<IAction> getActions();
+	public Collection<IAction> getActions();
 	
-	ITransition getTransition();
+	public void setActions(Collection<IAction> actions);
 	
-	int getLevel();
+	public void addAction(IAction action);
+	
+	public void addActions(Collection<IAction> actions);
+	
+	public IHTransition getTransition();
+	
+	public void setTransition(IHTransition transition);
+	
+	public int getLevel();
+	
+	public void setLevel(int level);
 }

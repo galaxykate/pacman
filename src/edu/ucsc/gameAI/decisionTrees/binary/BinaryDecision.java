@@ -1,5 +1,6 @@
 package edu.ucsc.gameAI.decisionTrees.binary;
 
+import pacman.game.Game;
 import edu.ucsc.gameAI.IAction;
 import edu.ucsc.gameAI.ICondition;
 
@@ -9,7 +10,7 @@ import edu.ucsc.gameAI.ICondition;
  * 
  * @author Josh McCoy
  */
-public class BinaryDecision implements IBinaryDecision {
+public class BinaryDecision implements IBinaryDecision, IBinaryNode {
 
 	private IBinaryNode trueBranch;
 	private IBinaryNode falseBranch;
@@ -49,18 +50,16 @@ public class BinaryDecision implements IBinaryDecision {
 	@Override
 	public IBinaryNode getFalseBranch() {return falseBranch;}
 	
-	public IAction makeDecision()
+	public IAction makeDecision(Game game)
 	{
-		if (condition.test())
-			return trueBranch.makeDecision();
+		if (condition.test(game))
+			return trueBranch.makeDecision(game);
 		else
-			return falseBranch.makeDecision();
+			return falseBranch.makeDecision(game);
 	}
 
 	@Override
 	public void setCondition(ICondition condition) {
 		this.condition = condition;
 	}
-
-	
 }

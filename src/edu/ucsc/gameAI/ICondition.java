@@ -1,5 +1,7 @@
 package edu.ucsc.gameAI;
 
+import pacman.game.Game;
+
 /**
  * The interface for decision making for decision trees, finite state machines
  * and hierarchical finite state machines.
@@ -12,6 +14,6 @@ public interface ICondition {
 	 * Evaluates the decision node's condition and returns the true or false result.
 	 * @return Result of evaluating the conditional expression.
 	 */
-	public boolean test();
+	public boolean test(Game game);
 	
 }

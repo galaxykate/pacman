@@ -1,11 +1,12 @@
 package edu.ucsc.gameAI.hfsm;
 
-import java.util.Collection;
+import pacman.game.Game;
 import edu.ucsc.gameAI.IAction;
 
 public interface IHFSMBase {
 
-	Collection<IAction> getAction();
+	public IAction getAction();
 	
-	IResult update();
+	public IResult update(Game game);
+	
 }

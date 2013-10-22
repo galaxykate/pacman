@@ -2,6 +2,7 @@ package edu.ucsc.gameAI;
 
 import pacman.entries.pacman.SettableController;
 import pacman.game.Constants.MOVE;
+import pacman.game.Game;
 import edu.ucsc.gameAI.decisionTrees.binary.IBinaryNode;
 
 public class GoAction implements IAction, IBinaryNode {
@@ -18,7 +19,15 @@ public class GoAction implements IAction, IBinaryNode {
 		controller.setMove(this.dir);
 	}
 
-	public IAction makeDecision() {
-		return this;
+	@Override
+	public IAction makeDecision(Game game) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MOVE getMove() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

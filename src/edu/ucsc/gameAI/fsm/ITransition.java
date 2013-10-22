@@ -1,5 +1,6 @@
 package edu.ucsc.gameAI.fsm;
 
+import pacman.game.Game;
 import edu.ucsc.gameAI.IAction;
 import edu.ucsc.gameAI.ICondition;
 
@@ -14,13 +15,25 @@ public interface ITransition {
 	 * Accesses the state that this transition leads to.
 	 * @return The state this transition leads to.
 	 */
-	IState getTargetState();
+	public IState getTargetState();
+	
+	/**
+	 * Sets the target state of this transition.
+	 * @param targetState The target state.
+	 */
+	public void setTargetState(IState targetState);
 	
 	/**
 	 * Generates the action associated with taking this transition.
 	 * @return The action associated with taking this transition.
 	 */
-	IAction getAction();
+	public IAction getAction();
+	
+	/**
+	 * Sets the action for enacting the transition.
+	 * @param action Transition action.
+	 */
+	public void setAction(IAction action);
 	
 	/**
 	 * Sets the condition that determines if the transition is triggered.
@@ -32,5 +45,5 @@ public interface ITransition {
 	 * Determines if this transition is triggered.
 	 * @return True if triggered, false if not.
 	 */
-	public boolean isTriggered();
+	public boolean isTriggered(Game game);
 }
