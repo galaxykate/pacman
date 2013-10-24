@@ -13,8 +13,8 @@ public class TotalTime implements ICondition {
 
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		int time = game.getTotalTime();
+		return (time >= min && time < max);
 	}
 
 }

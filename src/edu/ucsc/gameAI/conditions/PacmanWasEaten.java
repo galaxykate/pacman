@@ -7,8 +7,7 @@ public class PacmanWasEaten implements ICondition {
 
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		return game.wasPacManEaten();
 	}
 
 }

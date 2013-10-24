@@ -13,8 +13,8 @@ public class Score implements ICondition {
 
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		int score = game.getScore();
+		return (score >= min && score < max);
 	}
 
 }

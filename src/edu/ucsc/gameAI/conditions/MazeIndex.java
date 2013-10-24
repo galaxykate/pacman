@@ -7,13 +7,14 @@ public class MazeIndex implements ICondition {
 	private int index;
 
 	public MazeIndex(int index) {
-this.index = index;
+		this.index = index;
 	}
 
+	// Test that the integer "index" representing a specific maze is indeed
+	// equal to the game state's notion of what maze is current.
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		return (game.getMazeIndex() == index);
 	}
 
 }
