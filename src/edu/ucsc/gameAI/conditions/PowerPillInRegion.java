@@ -2,6 +2,7 @@ package edu.ucsc.gameAI.conditions;
 
 import pacman.game.Game;
 import edu.ucsc.gameAI.ICondition;
+import edu.ucsc.gameAI.Utils;
 
 public class PowerPillInRegion implements ICondition {
 	private int x1, y1, x2, y2;
@@ -14,8 +15,16 @@ public class PowerPillInRegion implements ICondition {
 	}
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
+		
+		Utils util = new Utils();
+		
+		for(int pillIndex : game.getActivePowerPillsIndices()) {
+			if (util.nodeInArea(game, pillIndex, x1, y1, x2, y2)) {
+				return true;
+			}
+		}
 		return false;
+
 	}
 
 }

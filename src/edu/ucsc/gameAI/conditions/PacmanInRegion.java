@@ -2,6 +2,7 @@ package edu.ucsc.gameAI.conditions;
 
 import pacman.game.Game;
 import edu.ucsc.gameAI.ICondition;
+import edu.ucsc.gameAI.Utils;
 
 public class PacmanInRegion implements ICondition {
 	private int x1, y1, x2, y2;
@@ -13,10 +14,10 @@ public class PacmanInRegion implements ICondition {
 		this.y2 = y2;
 	}
 
+	// True if PacMan is in the region specified by the coordinates.
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		return (new Utils()).nodeInArea(game, game.getPacmanCurrentNodeIndex(), x1, y1, x2, y2);
 	}
 
 }
