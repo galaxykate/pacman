@@ -67,9 +67,9 @@ public class Evaluator
 //	IHFSM hfsm ;
 //	IHFSM upIsUp ;
 //	IHFSM upIsDown ;
-	Collection<IHState> statesLR;
-	Collection<IHState> statesUpIsUp;		
-	Collection<IHState> statesUpIsDown;
+//	Collection<IHState> statesLR;
+//	Collection<IHState> statesUpIsUp;		
+//	Collection<IHState> statesUpIsDown;
 //	IHState neutralUU;
 //	IHState upUU;
 //	IHState downUU;

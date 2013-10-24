@@ -1,5 +1,6 @@
 package edu.ucsc.gameAI.fsm;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class StateMachine implements IStateMachine {
         		 * "actions" such that it would work for any kind of action?
         		 */
         		
-                Collection<IAction> actions = new Collection<IAction>();
+                Collection<IAction> actions = new ArrayList<IAction>();
                 IState targetState = currentState;
                 
                 // Assume no transition is triggered
