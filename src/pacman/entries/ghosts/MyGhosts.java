@@ -26,13 +26,13 @@ public class MyGhosts extends Controller<EnumMap<GHOST,MOVE>>
 		for(GHOST ghost : GHOST.values())	//for each ghost
 		{
 			BinaryDecision edibleBinaryDecision = new BinaryDecision();
-			edibleBinaryDecision.setCondition(new IsEdible(game,ghost));
+			edibleBinaryDecision.setCondition(new IsEdible(ghost));
 			edibleBinaryDecision.setTrueBranch(new GoLeftAction());
 			edibleBinaryDecision.setFalseBranch(new GoRightAction());
 	
 			if(game.doesGhostRequireAction(ghost))		//if ghost requires an action
 			{
-				if (edibleBinaryDecision.makeDecision().getClass() == GoLeftAction.class)
+				if (edibleBinaryDecision.makeDecision(game).getClass() == GoLeftAction.class)
 					myMoves.put(ghost,MOVE.LEFT);
 				else
 					myMoves.put(ghost,MOVE.RIGHT);

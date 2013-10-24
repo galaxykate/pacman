@@ -13,8 +13,9 @@ public class CurrentLevelTime implements ICondition {
 
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return (game.getCurrentLevelTime() < max && game.getCurrentLevelTime() >= min);
+	
 	}
 
 }
