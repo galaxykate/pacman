@@ -24,6 +24,7 @@ import pacman.controllers.examples.RandomPacMan;
 import pacman.controllers.examples.StarterGhosts;
 import pacman.controllers.examples.StarterPacMan;
 import pacman.entries.ghosts.*;
+import pacman.entries.pacman.KatesPacMan;
 import pacman.game.Game;
 import pacman.game.GameView;
 import static pacman.game.Constants.*;
@@ -72,7 +73,8 @@ public class Executor
 
 		//exec.runGameTimed(new StarterPacMan(),new EvaluationAgent(),visual);
 		//exec.runGameTimed(new StarterPacMan(),new MyGhosts(),visual,bRunUnitTests);
-		exec.runGameTimed(new HumanController(new KeyBoardInput()),new MyGhosts(),visual,bRunUnitTests);
+		//exec.runGameTimed(new HumanController(new KeyBoardInput()),new MyGhosts(),visual,bRunUnitTests);
+		exec.runGameTimed(new KatesPacMan(),new StarterGhosts(),visual,bRunUnitTests);
 
 //		exec.runGameTimed(new HumanController(new KeyBoardInput()),new StarterGhosts(),visual);	
 		//*/
@@ -202,7 +204,7 @@ public class Executor
 	        if(visual)
 	        	gv.repaint();
 	        
-	        if (bRunUnitTests)
+	       if (bRunUnitTests)
 	        	eval.runUnitTests(game,pacManController,ghostController);
 
 		}
