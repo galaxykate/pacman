@@ -1,6 +1,5 @@
 package edu.ucsc.gameAI.conditions;
 
-import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;
 import pacman.game.Game;
 import edu.ucsc.gameAI.ICondition;
@@ -14,8 +13,7 @@ public class PacmanLastMove implements ICondition {
 	}
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		return (move == game.getPacmanLastMoveMade());
 	}
 
 }

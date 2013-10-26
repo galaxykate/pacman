@@ -43,6 +43,7 @@ public interface ITransition {
 	
 	/**
 	 * Determines if this transition is triggered.
+	 * @param game TODO
 	 * @return True if triggered, false if not.
 	 */
 	public boolean isTriggered(Game game);

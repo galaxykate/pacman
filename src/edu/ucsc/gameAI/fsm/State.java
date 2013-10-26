@@ -10,59 +10,56 @@ import edu.ucsc.gameAI.IAction;
  */
 public class State implements IState {
 
-        // Keep track of the action to perform while in, on entry, and on exit of this state.
-        IAction action;
-        IAction entryAction;
-        IAction exitAction;
-        Collection<ITransition> outgoingTransitions;
-        
-        // Constructor
-        public State() {
+	// Keep track of the action to perform while in, on entry, and on exit of
+	// this state.
+	IAction action;
+	IAction entryAction;
+	IAction exitAction;
+	Collection<ITransition> outgoingTransitions;
 
-        }
+	// Constructor
+	public State() {
 
-        @Override
-        public IAction getAction() {
-                return action;
-        }
+	}
 
-        @Override
-        public IAction getEntryAction() {
-                return entryAction;
-        }
+	@Override
+	public IAction getAction() {
+		return action;
+	}
 
-        @Override
-        public IAction getExitAction() {
-                return exitAction;
-        }
+	@Override
+	public IAction getEntryAction() {
+		return entryAction;
+	}
 
-        @Override
-        public Collection<ITransition> getTransitions() {
-                return outgoingTransitions;
-        }
+	@Override
+	public IAction getExitAction() {
+		return exitAction;
+	}
 
-		@Override
-		public void setAction(IAction action) {
-			// TODO Auto-generated method stub
-			
-		}
+	@Override
+	public Collection<ITransition> getTransitions() {
+		return outgoingTransitions;
+	}
 
-		@Override
-		public void setEntryAction(IAction action) {
-			// TODO Auto-generated method stub
-			
-		}
+	@Override
+	public void setAction(IAction action) {
+		this.action = action;
+	}
 
-		@Override
-		public void setExitAction(IAction action) {
-			// TODO Auto-generated method stub
-			
-		}
+	@Override
+	public void setEntryAction(IAction action) {
+		this.entryAction = action;
+	}
 
-		@Override
-		public void setTransitions(Collection<ITransition> trans) {
-			// TODO Auto-generated method stub
-			
-		}
+	@Override
+	public void setExitAction(IAction action) {
+		this.exitAction = action;
+	}
+
+	@Override
+	public void setTransitions(Collection<ITransition> trans) {
+		this.outgoingTransitions = trans;
+	}
 
 }

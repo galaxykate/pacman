@@ -4,9 +4,11 @@ import pacman.game.Constants.MOVE;
 import pacman.game.Game;
 import edu.ucsc.gameAI.decisionTrees.binary.IBinaryNode;
 
-public class GoLeftAction implements IAction, IBinaryNode {
+public class NeutralAction implements IAction, IBinaryNode {
 
 	public void doAction() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	@Override
@@ -16,6 +18,6 @@ public class GoLeftAction implements IAction, IBinaryNode {
 
 	@Override
 	public MOVE getMove() {
-		return MOVE.LEFT;
+		return MOVE.NEUTRAL;
 	}
 }

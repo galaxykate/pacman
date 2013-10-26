@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -25,22 +26,20 @@ import pacman.controllers.examples.RandomNonRevPacMan;
 import pacman.controllers.examples.RandomPacMan;
 import pacman.controllers.examples.StarterGhosts;
 import pacman.controllers.examples.StarterPacMan;
-import pacman.entries.ghosts.MyGhosts;
+import pacman.entries.ghosts.*;
 import pacman.game.Game;
 import pacman.game.GameView;
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;
+import pacman.tests.*;
 import static pacman.game.Constants.*;
+/*
 import edu.ucsc.gameAI.*;
 import edu.ucsc.gameAI.conditions.*;
 import edu.ucsc.gameAI.decisionTrees.binary.BinaryDecision;
 import edu.ucsc.gameAI.fsm.*;
-//import edu.ucsc.gameAI.hfsm.HFSM;
-//import edu.ucsc.gameAI.hfsm.HState;
-//import edu.ucsc.gameAI.hfsm.HTransition;
-//import edu.ucsc.gameAI.hfsm.IHFSM;
-//import edu.ucsc.gameAI.hfsm.IHState;
-//import edu.ucsc.gameAI.hfsm.IHTransition;
+import edu.ucsc.gameAI.hfsm.*;
+*/
 
 /**
  * This class may be used to execute the game in timed or un-timed modes, with or without
@@ -51,335 +50,253 @@ import edu.ucsc.gameAI.fsm.*;
 @SuppressWarnings("unused")
 public class Evaluator
 {	
-	boolean bLeftState; // for hfsm test
-	int ix1 = 0;
-	int ix2 = 110;
-	int iy1 = 0;
-	int iy2 = 60;
-	int iy3 = 120;
-	State stateRun;
-	State stateChase;
-	Transition transScared;
-	LinkedList<ITransition> listtscared ;
-	Transition transCool ;
-	LinkedList<ITransition> listtcool ;
-	StateMachine fsm ;
-//	IHFSM hfsm ;
-//	IHFSM upIsUp ;
-//	IHFSM upIsDown ;
-//	Collection<IHState> statesLR;
-//	Collection<IHState> statesUpIsUp;		
-//	Collection<IHState> statesUpIsDown;
-//	IHState neutralUU;
-//	IHState upUU;
-//	IHState downUU;
-//	IHState neutralUD;
-//	IHState upUD;
-//	IHState downUD;
-//	IHTransition leftLR;
-//	IHTransition rightLR;
-//	IHTransition neutralUpUU;
-//	IHTransition neutralDownUU;
-//	IHTransition downUpUU;
-//	IHTransition upDownUU;
-//	IHTransition neutralUpUD;
-//	IHTransition neutralDownUD;
-//	IHTransition upUpUD;
-//	IHTransition downDownUD;
+	ActionsAndConditionsTests actTest;
+	DecisionTreeTests decTest;
+	FSMTests fsmTest;
+	HFSMTests hfsmTest;
+	LinkedList<Float> actResults;
+	LinkedList<Float> decResults;
+	LinkedList<Float> fsmResults;
+	LinkedList<Float> hfsmResults;
+	boolean testActionsAndConditions;
+	boolean testDecisionTrees;
+	boolean testFSMs;
+	boolean testHFSMs;
 	
 	public Evaluator()
 	{
-		//create fsm
-		stateRun = new State();
-		stateRun.setAction(new GoDownAction());
-		stateChase = new State();
-		stateChase.setAction(new GoUpAction());
-		transScared = new Transition();
-		transScared.setCondition(new PacmanInRegion(ix1,iy1,ix2,iy2)); // top half of the screen
-		transScared.setTargetState(stateRun);
-		listtscared = new LinkedList<ITransition>();
-		listtscared.add(transScared);
-		transCool = new Transition();
-		transCool.setCondition(new PacmanInRegion(ix1,iy2+1,ix2,iy3)); // bottom of screen (screen is (4,4) to (104,116))
-		transCool.setTargetState(stateChase);
-		listtcool = new LinkedList<ITransition>();
-		listtcool.add(transCool);
-		stateRun.setTransitions(listtcool);
-		stateChase.setTransitions(listtscared);
-		fsm = new StateMachine();
-		fsm.setCurrentState(stateChase);
+		actResults = new LinkedList<Float>();
+		decResults = new LinkedList<Float>();
+		fsmResults = new LinkedList<Float>();
+		hfsmResults = new LinkedList<Float>();
+	}
+	public void printScores()
+	{
+		Iterator<Float> iter;
+		float avg=0;
 		
-		//create hfsm
-//		hfsm = new HFSM();
-//		upIsUp = new HFSM();
-//		upIsDown = new HFSM();
-//		
-//		statesLR = new ArrayList<IHState>();
-//		statesUpIsUp = new ArrayList<IHState>();		
-//		statesUpIsDown = new ArrayList<IHState>();
+		System.out.print("Actions and Conditions: ");
+		if (!testActionsAndConditions)
+			System.out.println("Test Disabled.");
+		else if (actResults.size() < 1)
+			System.out.println("Required classes are not implemented. Tests not run.");			
+		else
+		{
+			avg=0;
+			iter = actResults.iterator();
+			while (iter.hasNext())
+				avg+=iter.next();
+			
+			System.out.println(100*avg/actResults.size()+"% of points.");
+		}
+		System.out.print("Decision Trees: ");
+		if (!testDecisionTrees)
+			System.out.println("Test Disabled.");
+		else if (decResults.size() < 1)
+			System.out.println("Required classes are not implemented. Tests not run.");			
+		else
+		{
+			avg=0;
+			iter = decResults.iterator();
+			while (iter.hasNext())
+				avg+=iter.next();
+			
+			System.out.println(100*avg/decResults.size() + "% of points.");
+		}
+		System.out.print("FSM: ");
+		if (!testFSMs)
+			System.out.println("Test Disabled.");
+		else if (fsmResults.size() < 1)
+			System.out.println("Required classes are not implemented. Tests not run.");			
+		else
+		{
+			avg=0;
+			iter = fsmResults.iterator();
+			while (iter.hasNext())
+				avg+=iter.next();
+			
+			System.out.println(100*avg/fsmResults.size()+"% of points.");
+		}
+		System.out.print("HFSM: ");
+		if (!testHFSMs)
+			System.out.println("Test Disabled.");
+		else if (hfsmResults.size() < 1)
+			System.out.println("HFSM classes are not implemented. Tests not run.");			
+		else
+		{
+			avg=0;
+			iter = hfsmResults.iterator();
+			while (iter.hasNext())
+				avg+=iter.next();
+			
+			System.out.println(100*avg/hfsmResults.size()+"% of points.");
+		}
 		
 		
-		//create states and add actions
-//		neutralUU = new HState("neutralUU");
-//		neutralUU.setAction(new NeutralAction());
-//		upUU = new HState("upUU");
-//		upUU.setAction(new GoUpAction());
-//		downUU = new HState("downUU");
-//		downUU.setAction(new GoDownAction());
-//		
-//		neutralUD = new HState("neutralUD");
-//		neutralUD.setAction(new NeutralAction());
-//		upUD = new HState("upUD");
-//		upUD.setAction(new GoUpAction());
-//		downUD = new HState("downUD");
-//		downUD.setAction(new GoDownAction());
-
-		
-		//create and add transitions to HFMS and states.
-//		leftLR = new HTransition(upIsUp, new PacmanLastMove(MOVE.LEFT));
-//		rightLR = new HTransition(upIsDown, new PacmanLastMove(MOVE.RIGHT));
-//		upIsUp.addTransition(rightLR);
-//		upIsDown.addTransition(leftLR);
-//		
-//		
-//		neutralUpUU = new HTransition(upUU, new PacmanLastMove(MOVE.UP));
-//		neutralDownUU = new HTransition(downUU, new PacmanLastMove(MOVE.DOWN));
-//		neutralUU.addTransition(neutralUpUU);
-//		neutralUU.addTransition(neutralDownUU);
-//		
-//		
-//		upDownUU = new HTransition(downUU, new PacmanLastMove(MOVE.DOWN));
-//		upUU.addTransition(upDownUU);
-//		downUpUU = new HTransition(upUU, new PacmanLastMove(MOVE.UP));
-//		downUU.addTransition(downUpUU);
-//		
-//		neutralUpUD = new HTransition(downUD, new PacmanLastMove(MOVE.UP));
-//		neutralDownUD = new HTransition(upUD, new PacmanLastMove(MOVE.DOWN));
-//		neutralUD.addTransition(neutralUpUD);
-//		neutralUD.addTransition(neutralDownUD);
-//		
-//		upUpUD = new HTransition(downUD, new PacmanLastMove(MOVE.UP));
-//		upUD.addTransition(upUpUD);
-//		downDownUD = new HTransition(upUD, new PacmanLastMove(MOVE.DOWN));
-//		downUD.addTransition(downDownUD);
-		
-		//add the states to the FSM.
-//		statesLR.add(upIsUp);
-//		statesLR.add(upIsDown);
-//		hfsm.setStates(statesLR);
-//		hfsm.setInitialState(upIsUp); // left state
-//		
-//		statesUpIsUp.add(neutralUU);
-//		statesUpIsUp.add(upUU);
-//		statesUpIsUp.add(downUU);
-//		upIsUp.setStates(statesUpIsUp);
-//		upIsUp.setInitialState(neutralUU);
-//
-//		statesUpIsDown.add(neutralUD);
-//		statesUpIsDown.add(upUD);
-//		statesUpIsDown.add(downUD);
-//		upIsDown.setStates(statesUpIsDown);
-//		upIsDown.setInitialState(neutralUD);
-//		
-//		// for testing hfsm
-//		bLeftState = true;
 	}
 	
     // could be a function run every frame of runExperiment, accepting game as a parameter
-    public void runUnitTests(Game game, Controller<MOVE> pacManController,Controller<EnumMap<GHOST,MOVE>> ghostController)
+    public void runUnitTests(Game game, Controller<MOVE> pacManController,Controller<EnumMap<GHOST,MOVE>> ghostController, boolean testActionsAndConditions, boolean testDecisionTrees, boolean testFSMs, boolean testHFSMs)
     {
-    	// test 1: is blinky edible
-		IsEdible edible = new IsEdible(GHOST.BLINKY);
-		// OR if (edible.test(game) == game.isGhostEdible(GHOST.BLINKY))
-		if (edible.test(game) == false)
-		{
-			//System.out.println("Test 1 passed");
-		}
-		else
-		{
-			//System.out.println("Test 1 failed");
-		}
-	
+    	this.testActionsAndConditions = testActionsAndConditions; 
+    	this.testDecisionTrees = testDecisionTrees; 
+    	this.testFSMs = testFSMs; 
+    	this.testHFSMs = testHFSMs;
+    	String packageBase = "edu.ucsc.gameAI.";
+    	String conditionBase = packageBase + "conditions.";
+    	String decisionTreeBase = packageBase + "decisionTrees.binary.";
+    	String fsmBase = packageBase + "fsm.";
+    	String hfsmBase = packageBase + "hfsm.";
+    
+    	boolean classesExist;
+    	
+    	if(testActionsAndConditions) {
+    		classesExist = true;
+    		
+    		//actions
+    		if (!testForClass(packageBase + "GoUpAction"))
+    			classesExist = false;
+    		if (!testForClass(packageBase + "GoDownAction"))
+    			classesExist = false;
+    		
+    		//general game state conditions
+    		if (!testForClass(conditionBase + "MazeIndex"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "LevelCount"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "CurrentLevelTime"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "TotalTime"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "Score"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "GhostEatScore"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "TimeOfLastGlobalReversal"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "PacmanWasEaten"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "PillWasEaten"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "PowerPillWasEaten"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "IsPillStillAvailable"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "IsPowerPillStillAvailable"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "GhostEaten"))
+    			classesExist = false;
+    		
+    		//ghost state conditions
+    		if (!testForClass(conditionBase + "CurrentGhostNodeIndex"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "EdibleTime"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "LairTime"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "GhostLastMove"))
+    			classesExist = false;
+    		
+    		//ms pacman conditions
+    		if (!testForClass(conditionBase + "CurrentPacmanNodeIndex"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "NumberOfLivesRemaining"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "PacmanLastMove"))
+    			classesExist = false;
+    		
+    		//conditions with inference
+    		if (!testForClass(conditionBase + "PillInRegion"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "PowerPillInRegion"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "GhostInRegion"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "PacmanInRegion"))
+    			classesExist = false;
+    		
+    		if(!classesExist) {
+    			;//System.err.println("Required classes are not implemented. Not running action and condition tests.");
+    		}else{
+    			if (actTest == null)
+    				actTest = new ActionsAndConditionsTests();
+    			
+    			actResults.add(actTest.test(game));
+    		}
+    	}
+    	
+    	if(testDecisionTrees) {
+    		classesExist = true;
+    		if (!testForClass(decisionTreeBase + "BinaryDecision"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "PacmanInRegion"))
+    			classesExist = false;
+    		if(!classesExist) {
+    			;//System.err.println("Required classes are not implemented. Not running decision tree tests.");
+    		}else{
+    			if (decTest == null)
+    				decTest = new DecisionTreeTests();
+    			
+    			decResults.add(decTest.test(game));
+    		}
+    	}
+ 
+    	if(testFSMs) {
+    		classesExist = true;
+    		if (!testForClass(fsmBase + "State"))
+    			classesExist = false;
+    		if (!testForClass(fsmBase + "StateMachine"))
+    			classesExist = false;
+    		if (!testForClass(fsmBase + "Transition"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "PacmanInRegion"))
+    			classesExist = false;
+    		if(!classesExist) {
+    			;//System.err.println("Required classes are not implemented. Not running FSM tests.");
+    		}else{
+    			if (fsmTest == null)
+    				fsmTest = new FSMTests();
+    			
+    			fsmResults.add(fsmTest.test(game));
+    		}
+    	}
+    	
+    	if(testHFSMs) {
+    		classesExist = true;
+    		if (!testForClass(hfsmBase + "HFSM"))
+    			classesExist = false;
+    		if (!testForClass(hfsmBase + "HFSMBase"))
+    			classesExist = false;
+    		if (!testForClass(hfsmBase + "HState"))
+    			classesExist = false;
+    		if (!testForClass(hfsmBase + "HTransition"))
+    			classesExist = false;
+    		if (!testForClass(hfsmBase + "Result"))
+    			classesExist = false;
+    		if (!testForClass(conditionBase + "PacmanLastMove"))
+    			classesExist = false;
+    		
+    		if(!classesExist) {
+    			;//System.err.println("Required classes are not implemented. Not running HFSM tests.");
+    		}else{
+    			if (hfsmTest == null)
+    				hfsmTest = new HFSMTests();
+    			
+    			hfsmResults.add(hfsmTest.test(game));
+    		}
+    	}
 		
-		// Game State Condition Tests
-		if (new MazeIndex(game.getMazeIndex()).test(game))
-			;//System.out.println("MazeIndex passed");
-		else
-			System.out.println("MazeIndex failed");
-		if (new LevelCount(game.getCurrentLevel()).test(game))
-			;//System.out.println("LevelCount passed");
-		else
-			System.out.println("LevelCount failed");
-		if (new CurrentLevelTime(game.getCurrentLevelTime()-1,game.getCurrentLevelTime()+1).test(game))
-			;//System.out.println("CurrentLevelTime passed");
-		else
-			System.out.println("CurrentLevelTime failed");
-		if (!new TotalTime(game.getTotalTime()-1,game.getTotalTime()+1).test(game))
-			System.out.println("TotalTime failed");
-		if (!new Score(game.getScore()-1,game.getScore()+1).test(game))
-			System.out.println("Score failed");		
-		if (!new GhostEatScore(game.getGhostCurrentEdibleScore()-1,game.getGhostCurrentEdibleScore()+1).test(game))
-			System.out.println("GhostEatScore failed");
-		if (!new TimeOfLastGlobalReversal(game.getTimeOfLastGlobalReversal()-1,game.getTimeOfLastGlobalReversal()+1).test(game))
-			System.out.println("TimeOfLastGlobalReversal failed");
-		if (!(new PacmanWasEaten().test(game) == game.wasPacManEaten()))
-			System.out.println("PacmanWasEaten failed");
-		if (!(new PillWasEaten().test(game) == game.wasPillEaten()))
-			System.out.println("PillWasEaten failed");
-		if (!(new PowerPillWasEaten().test(game) == game.wasPowerPillEaten()))
-			System.out.println("PowerPillWasEaten failed");
-		for (int pill : game.getPillIndices())
-			if (!(new IsPillStillAvailable(pill).test(game) == game.isPillStillAvailable(pill)))
-				System.out.println("IsPillStillAvailable failed");
-		for (int pill : game.getPillIndices())
-			if (!(new IsPowerPillStillAvailable(pill).test(game) == game.isPowerPillStillAvailable(pill)))
-				System.out.println("IsPowerPillStillAvailable failed");
-		for (GHOST ghost : GHOST.values())
-			if (!(new GhostEaten(ghost).test(game) == game.wasGhostEaten(ghost)))
-			//if (!(new GhostEaten(ghost).test(game) == game.isGhostEdible(ghost)))
-				System.out.println("GhostEaten failed");
-		
-		// Ghost State Conditions
-		for (GHOST ghost : GHOST.values())
-		{
-			if (!(new CurrentGhostNodeIndex(ghost, game.getGhostCurrentNodeIndex(ghost))).test(game))
-				System.out.println("CurrentGhostNodeIndex failed");
-			if (!(new EdibleTime(ghost, game.getGhostEdibleTime(ghost)-1,game.getGhostEdibleTime(ghost)+1)).test(game))
-				System.out.println("EdibleTime failed");
-			if (!(new LairTime(ghost, game.getGhostLairTime(ghost)-1,game.getGhostLairTime(ghost)+1)).test(game))
-				System.out.println("GhostEaten failed");
-			if (!(new GhostLastMove(ghost, game.getGhostLastMoveMade(ghost))).test(game))
-				System.out.println("GhostLastMove failed");
-		}
-		
-		// Ms Pac ManState Conditions
-		if (!(new CurrentPacmanNodeIndex(game.getPacmanCurrentNodeIndex())).test(game))
-			System.out.println("CurrentPacmanNodeIndex failed");
-		if (!(new NumberOfLivesRemaining(game.getPacmanNumberOfLivesRemaining()).test(game)))
-			System.out.println("NumberOfLivesRemaining failed");
-		if (!(new PacmanLastMove(game.getPacmanLastMoveMade()).test(game)))
-			System.out.println("PacmanLastMove failed");
-	
-		// Inference Conditions
-		int px;
-		int py;
-		for (int pill : game.getActivePillsIndices())
-		{
-			px = game.getNodeXCood(pill);
-			py = game.getNodeYCood(pill);
-			if (!(new PillInRegion(px-1,py-1,px+1,py+1).test(game)))
-				System.out.println("PillInRegion failed");
-		}
-		for (int ppill : game.getActivePowerPillsIndices())
-		{
-			px = game.getNodeXCood(ppill);
-			py = game.getNodeYCood(ppill);
-			if (!(new PowerPillInRegion(px-1,py-1,px+1,py+1).test(game)))
-				System.out.println("PowerPillInRegion failed");
-		}
-		for (GHOST ghost : GHOST.values())
-		{
-			int ig = game.getGhostCurrentNodeIndex(ghost);
-			int gx = game.getNodeXCood(ig);
-			int gy = game.getNodeYCood(ig);
-			if (!(new GhostInRegion(gx-1,gy-1,gx+1,gy+1).test(game)))
-				System.out.println("GhostInRegion failed");
-		}
-		int ipac = game.getPacmanCurrentNodeIndex();
-		int pacx = game.getNodeXCood(ipac);
-		int pacy = game.getNodeYCood(ipac);
-		if (!(new PacmanInRegion(pacx-1,pacy-1,pacx+1,pacy+1).test(game)))
-			System.out.println("PacmanLastMove failed");
-		
-		// Decision Tree
-		BinaryDecision root = new BinaryDecision();
-		ipac = game.getPacmanCurrentNodeIndex();
-		pacx = game.getNodeXCood(ipac);
-		pacy = game.getNodeYCood(ipac);
-		root.setCondition(new PacmanInRegion(pacx-1,pacy-1,pacx+1,pacy+1));
-		root.setTrueBranch(new GoUpAction());
-		root.setFalseBranch(new GoDownAction());
-		if (root.makeDecision(game).getClass() != GoUpAction.class)
-			System.out.println("Decision Tree failed");
-			
-		// FSM (up when pacman in the bottom half of screen, down otherwise)
-		
-		Collection<IAction> actions = fsm.update(game);
-		// test result
-		int ip = game.getPacmanCurrentNodeIndex();
-		pacx = game.getNodeXCood(ip);
-		pacy = game.getNodeYCood(ip);
-		if (ix1 <= pacx && ix2 >= pacx &&
-			iy1 <= pacy && iy2 >= pacy &&
-			actions.size() > 0)
-		{
-			if (actions.iterator().next().getClass() != GoDownAction.class)
-				System.out.println("FSM action result failed");
-			if (fsm.getCurrentState() != stateRun)
-				System.out.println("FSM state failed");
-		}
-			
-		// hfsm
-/*		boolean bCheck = true;
-		actions = hfsm.update(game).getActions();
-		if (game.getPacmanLastMoveMade() == MOVE.LEFT && !bLeftState)
-		{
-			bLeftState = true;
-			bCheck = false;
-		}
-		if (game.getPacmanLastMoveMade() == MOVE.RIGHT && bLeftState)
-		{
-			bLeftState = false;
-			bCheck = false;
-		}
-		if (actions.size() < 1)
-			bCheck = false;
-		
-		if (bCheck)
-		{
-			IAction act = actions.iterator().next();
-			MOVE mv = act.getMove();
-			if (game.getPacmanLastMoveMade() == MOVE.UP)
-			{
-				if (bLeftState)
-				{
-					if (mv != MOVE.UP)
-						System.out.println("HFSM fail 1");
-				}	
-				else
-				{
-					if (mv != MOVE.DOWN)
-						System.out.println("HFSM fail 2");
-				}
-			}
-			else if (game.getPacmanLastMoveMade() == MOVE.DOWN)
-			{
-				if (bLeftState)
-				{
-					if (mv != MOVE.DOWN)
-						System.out.println("HFSM fail 3");
-				}	
-				else
-				{
-					if (mv != MOVE.UP)
-						System.out.println("HFSM fail 4");
-				}
-			}
-		}*/
-		
-		// actions
-		if (!(new GoUpAction().getClass() == GoUpAction.class))
-			System.out.println("GoUpAction failed");
-		if (!(new GoLeftAction().getClass() == GoLeftAction.class))
-			System.out.println("GoLeftAction failed");
-		if (!(new GoRightAction().getClass() == GoRightAction.class))
-			System.out.println("GoRightAction failed");
-		if (!(new GoDownAction().getClass() == GoDownAction.class))
-			System.out.println("GoDownAction failed");
-		
-		
-		
-		
+    }
+    
+    private boolean testForClass(String className) {
+    	try{
+    		Class.forName(className);
+    		//Class.forName(className, false, null);
+    	}catch(ClassNotFoundException e){
+    		;//System.err.println("Required class for project 1 not implemented: " + className);
+    		return false;
+    	}
+    	return true;
     }
 	
 }

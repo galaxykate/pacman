@@ -8,7 +8,15 @@ import edu.ucsc.gameAI.ICondition;
  * Note that this class intentionally does not borrow from FSM's ITransition.
  * They are separated for pedagogical reasons.
  * 
- * @author Josh McCoy
+ * 
+ * The reference implementation of HTransition has the following members:
+  	protected IHState targetState;
+	protected IAction action;
+	protected ICondition condition;
+	protected int level;
+ * It also has two constructors:
+  	public HTransition(IHState targetState, ICondition condition)
+  	public HTransition(IHState targetState, ICondition condition, int level, IAction action)
  *
  */
 public interface IHTransition {

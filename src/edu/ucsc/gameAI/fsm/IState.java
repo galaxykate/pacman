@@ -7,6 +7,9 @@ import edu.ucsc.gameAI.IAction;
 /**
  * The interface for a state in a finite state machine. 
  * 
+ * Update is the most complicated part of the FSM implementation. See Millington
+ * and Funge starting on page 312 for details.
+ * 
  * @author Josh McCoy
  */
 public interface IState {

@@ -7,10 +7,10 @@ import edu.ucsc.gameAI.decisionTrees.binary.IBinaryNode;
 public class GoRightAction implements IAction, IBinaryNode {
 
 	public void doAction() {
-		// TODO Auto-generated method stub
-		
 	}
 	
+	public IAction makeDecision() {return this;}
+
 	@Override
 	public IAction makeDecision(Game game) {
 		return this;
@@ -18,7 +18,6 @@ public class GoRightAction implements IAction, IBinaryNode {
 
 	@Override
 	public MOVE getMove() {
-		// TODO Auto-generated method stub
-		return null;
+		return MOVE.RIGHT;
 	}
 }
