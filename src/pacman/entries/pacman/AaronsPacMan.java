@@ -74,7 +74,6 @@ public class AaronsPacMan extends Controller<MOVE> {
 		stateMachine.setCurrentState(pillEating);
 	}
 
-	@Override
 	public MOVE getMove(Game game, long timeDue) {
 		// For decision tree:
 		//return startNode.makeDecision(game).getMove(game);
