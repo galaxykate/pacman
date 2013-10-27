@@ -10,11 +10,10 @@ public class IsPowerPillStillAvailable implements ICondition {
 	public IsPowerPillStillAvailable(int pillIndex) {
 		this.pillIndex = pillIndex;
 	}
-	
+
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		return game.isPowerPillStillAvailable(pillIndex);
 	}
 
 }

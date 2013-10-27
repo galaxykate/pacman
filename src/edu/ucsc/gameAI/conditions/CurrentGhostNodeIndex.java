@@ -6,17 +6,16 @@ import edu.ucsc.gameAI.ICondition;
 
 public class CurrentGhostNodeIndex implements ICondition {
 	private GHOST ghost;
-	private int index; 
-	
+	private int index;
+
 	public CurrentGhostNodeIndex(GHOST ghost, int index) {
 		this.ghost = ghost;
 		this.index = index;
 	}
-	
+
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		return (game.getGhostCurrentNodeIndex(ghost) == index);
 	}
 
 }

@@ -12,8 +12,6 @@ public class LevelCount implements ICondition {
 
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		return game.getCurrentLevel() == level;
 	}
-
 }

@@ -9,15 +9,15 @@ public class GhostLastMove implements ICondition {
 
 	private GHOST ghost;
 	private MOVE move;
-	
+
 	public GhostLastMove(GHOST ghost, MOVE move) {
 		this.ghost = ghost;
 		this.move = move;
 	}
+
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		return (game.getGhostLastMoveMade(ghost) == move);
 	}
 
 }

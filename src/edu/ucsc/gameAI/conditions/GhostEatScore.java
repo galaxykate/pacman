@@ -10,11 +10,11 @@ public class GhostEatScore implements ICondition {
 		this.min = min;
 		this.max = max;
 	}
-	
+
 	@Override
 	public boolean test(Game game) {
-		// TODO Auto-generated method stub
-		return false;
+		int score = game.getGhostCurrentEdibleScore();
+		return (score >= this.min && score < this.max);
 	}
 
 }
