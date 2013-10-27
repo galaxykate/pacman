@@ -21,7 +21,7 @@ public class GoAction implements IAction, IBinaryNode {
 	}
 
 	@Override
-	public MOVE getMove() {
+	public MOVE getMove(Game game) {
 		return this.dir;
 	}
 

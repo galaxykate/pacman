@@ -1,6 +1,8 @@
 package edu.ucsc.gameAI.fsm;
 
+import java.util.ArrayList;
 import java.util.Collection;
+
 import edu.ucsc.gameAI.IAction;
 
 /**
@@ -15,11 +17,10 @@ public class State implements IState {
 	IAction action;
 	IAction entryAction;
 	IAction exitAction;
-	Collection<ITransition> outgoingTransitions;
+	Collection<ITransition> outgoingTransitions = new ArrayList<ITransition>();
 
 	// Constructor
 	public State() {
-
 	}
 
 	@Override
@@ -60,6 +61,10 @@ public class State implements IState {
 	@Override
 	public void setTransitions(Collection<ITransition> trans) {
 		this.outgoingTransitions = trans;
+	}
+	
+	public void addTransition(ITransition trans) {
+		this.outgoingTransitions.add(trans);
 	}
 
 }

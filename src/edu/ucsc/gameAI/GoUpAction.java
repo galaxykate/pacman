@@ -17,7 +17,7 @@ public class GoUpAction implements IAction, IBinaryNode {
 	}
 
 	@Override
-	public MOVE getMove() {
+	public MOVE getMove(Game game) {
 		// TODO Auto-generated method stub
 		return null;
 	}
