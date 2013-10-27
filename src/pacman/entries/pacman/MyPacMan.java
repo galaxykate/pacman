@@ -10,14 +10,19 @@ import pacman.entries.pacman.AaronsPacMan;
  * fill in the getAction() method. Any additional classes you write should either
  * be placed in this package or sub-packages (e.g., game.entries.pacman.mypackage).
  */
-public class MyPacMan extends Controller<MOVE>
-{
-	private MOVE myMove=MOVE.NEUTRAL;
-	
-	public MOVE getMove(Game game, long timeDue) 
-	{
-		//Place your game logic here to play the game as Ms Pac-Man
-		
-		return AaronsPacMan.getMove();
+
+public class MyPacMan extends Controller<MOVE> {
+	private Controller<MOVE> testPacMan;
+	private MOVE myMove = MOVE.NEUTRAL;
+
+	public MyPacMan() {
+		testPacMan = new AaronsPacMan();
+		testPacMan = new KatesPacMan();
+	}
+
+	public MOVE getMove(Game game, long timeDue) {
+		// Place your game logic here to play the game as Ms Pac-Man
+
+		return testPacMan.getMove(game, timeDue);
 	}
 }
