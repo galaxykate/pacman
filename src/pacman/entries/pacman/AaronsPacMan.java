@@ -58,7 +58,7 @@ public class AaronsPacMan extends Controller<MOVE> {
 		ghostTooClose = new Transition(); 
 		ghostTooClose.setCondition(new GhostDistanceToPacman(0, 7*5));
 		ghostTooClose.setTargetState(ghostFleeing);
-		ghostFleeing.setEntryAction(new ConsoleLog("ghostTooClose! entering state ghostFleeing"));
+		//ghostFleeing.setEntryAction(new ConsoleLog("ghostTooClose! entering state ghostFleeing"));
 
 		pillEating.addTransition(ghostTooClose);		
 		
@@ -67,7 +67,7 @@ public class AaronsPacMan extends Controller<MOVE> {
 		safeDistance = new Transition();
 		safeDistance.setCondition(new GhostAtLeastThisFarAway(10*5));
 		safeDistance.setTargetState(pillEating);
-		pillEating.setEntryAction(new ConsoleLog("safeDistance. entering state pillEating"));
+		//pillEating.setEntryAction(new ConsoleLog("safeDistance. entering state pillEating"));
 		
 		ghostFleeing.addTransition(safeDistance);
 
