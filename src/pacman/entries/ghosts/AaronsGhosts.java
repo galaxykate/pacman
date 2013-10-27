@@ -7,6 +7,7 @@ import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;
 import pacman.game.Game;
 import edu.ucsc.gameAI.conditions.AnyNonEdibleGhosts;
+import edu.ucsc.gameAI.conditions.GhostEdibleTooClumpedTogether;
 import edu.ucsc.gameAI.conditions.IsEdible;
 import edu.ucsc.gameAI.conditions.IsPacmanAboutToPowerPillMe;
 import edu.ucsc.gameAI.decisionTrees.binary.*;
