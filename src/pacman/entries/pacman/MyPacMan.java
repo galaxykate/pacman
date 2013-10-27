@@ -3,6 +3,7 @@ package pacman.entries.pacman;
 import pacman.controllers.Controller;
 import pacman.game.Constants.MOVE;
 import pacman.game.Game;
+import pacman.entries.pacman.AaronsPacMan;
 
 /*
  * This is the class you need to modify for your entry. In particular, you need to
@@ -17,6 +18,6 @@ public class MyPacMan extends Controller<MOVE>
 	{
 		//Place your game logic here to play the game as Ms Pac-Man
 		
-		return myMove;
+		return AaronsPacMan.getMove();
 	}
 }

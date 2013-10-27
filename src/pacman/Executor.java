@@ -76,11 +76,11 @@ public class Executor
 		boolean visual=true;
 		
 		// run unit tests during execution
-		boolean bRunUnitTests=false;
+		boolean bRunUnitTests=true;
 		
 		
 		//exec.runGameTimed(new StarterPacMan(),new Legacy2TheReckoning(),visual,bRunUnitTests);
-		exec.runGameTimed(new HumanController(new KeyBoardInput()),new Legacy2TheReckoning(),visual,bRunUnitTests);
+		exec.runGameTimed(new AaronsPacMan(),new Legacy2TheReckoning(),visual,bRunUnitTests);
 		
 		// mypacman testing
 		//exec.runGameTimed(new MyPacMan(),new Legacy2TheReckoning(),visual,bRunUnitTests);
