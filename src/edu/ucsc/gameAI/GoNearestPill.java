@@ -19,6 +19,7 @@ public class GoNearestPill implements IAction, IBinaryNode {
 
 	private int _findNearestPill(Game game, int current, boolean includeNormalPills, boolean includePowerPills) {
 		
+		// This code is modified from the StarterPacMan example.
 		ArrayList<Integer> targets=new ArrayList<Integer>();
 		
 		if (includeNormalPills) {

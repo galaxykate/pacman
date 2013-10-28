@@ -45,8 +45,8 @@ public class FleeGhosts implements IAction, IBinaryNode {
 		if (closestGhost != null) {
 			closestPosition = game.getGhostCurrentNodeIndex(closestGhost);
 			
-			GameView.addLines(game, Color.RED, pacmanPosition, closestPosition);
-			System.out.println(closestDistance);
+			//GameView.addLines(game, Color.RED, pacmanPosition, closestPosition);
+			//System.out.println(closestDistance);
 			
 			return game.getNextMoveAwayFromTarget(pacmanPosition, closestPosition, DM.PATH);
 		}

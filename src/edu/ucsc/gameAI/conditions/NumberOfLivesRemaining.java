@@ -14,7 +14,7 @@ public class NumberOfLivesRemaining implements ICondition {
 	@Override
 	public boolean test(Game game) {
 		int lives = game.getPacmanNumberOfLivesRemaining();
-		return (lives >= min && lives < max);
+		return (lives >= min && lives <= max);
 	}
 
 }
