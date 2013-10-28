@@ -60,9 +60,9 @@ public class Executor {
 		Executor exec = new Executor();
 
 		// run multiple games in batch mode - good for testing.
-		int numTrials = 10000;
-		// exec.runExperiment(new StarterPacMan(),new
-		// Legacy2TheReckoning(),numTrials);
+		int numTrials = 100;
+		 exec.runExperiment(new MyPacMan(),new
+	 Legacy2TheReckoning(),numTrials);
 
 		/*
 		 * //run a game in synchronous mode: game waits until controllers
@@ -81,9 +81,7 @@ public class Executor {
 		// Legacy2TheReckoning(),visual,bRunUnitTests);
 		// exec.runGameTimed(new HumanController(new KeyBoardInput()),new
 		// Legacy2TheReckoning(),visual,bRunUnitTests);
-		exec.runGameTimed(new KatesPacMan(), new Legacy2TheReckoning(), visual,
-				bRunUnitTests);
-
+	
 		// mypacman testing
 		// exec.runGameTimed(new MyPacMan(),new
 		// Legacy2TheReckoning(),visual,bRunUnitTests);
