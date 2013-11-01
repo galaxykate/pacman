@@ -18,6 +18,7 @@ public class MyGhosts extends Controller<EnumMap<GHOST,MOVE>>
 	private Controller<EnumMap<GHOST,MOVE>> ghostAI;
 	
 	public MyGhosts() {
+		// Delegate to the specific AI we want to use.
 		ghostAI = new AaronsGhosts();
 	}
 	

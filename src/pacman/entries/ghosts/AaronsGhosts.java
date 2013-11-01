@@ -24,6 +24,17 @@ public class AaronsGhosts extends Controller<EnumMap<GHOST,MOVE>>
 	
 	public EnumMap<GHOST, MOVE> getMove(Game game, long timeDue)
 	{
+		/*
+		 * The ghost behavior is fairly straightforward. The core is a basic
+		 * gang up on PacMan approach, with all the ghosts seeking PacMan's
+		 * current position. The smart parts are all designed to prevent PacMan
+		 * from eating ghosts, since this is where he gets most of his
+		 * points. The ghosts will start running away from PacMan when he
+		 * gets near a pill, avoid clumping up while edible to prevent a
+		 * Pac-buffet, and try to lure PacMan towards non-edible ghosts.
+		 */
+		
+		
 		myMoves.clear();
 
 		for(GHOST ghost : GHOST.values())	//for each ghost
