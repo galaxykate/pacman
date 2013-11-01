@@ -16,9 +16,12 @@ public class MyPacMan extends Controller<MOVE> {
 	private MOVE myMove = MOVE.NEUTRAL;
 
 	public MyPacMan() {
+
 		testPacMan = new AaronsPacMan();
 		//testPacMan = new KatesPacMan();
 	}
+	
+
 
 	public MOVE getMove(Game game, long timeDue) {
 		// Place your game logic here to play the game as Ms Pac-Man
