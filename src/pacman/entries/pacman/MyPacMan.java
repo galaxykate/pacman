@@ -17,8 +17,8 @@ public class MyPacMan extends Controller<MOVE> {
 
 	public MyPacMan() {
 
-		testPacMan = new AaronsPacMan();
-		//testPacMan = new KatesPacMan();
+		//testPacMan = new AaronsPacMan();
+		testPacMan = new KatesPacMan();
 	}
 	
 
