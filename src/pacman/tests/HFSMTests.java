@@ -163,7 +163,7 @@ public class HFSMTests {
 		if (bCheck)
 		{
 			IAction act = actions.iterator().next();
-			MOVE mv = act.getMove();
+			MOVE mv = act.getMove(game);
 			if (game.getPacmanLastMoveMade() == MOVE.UP)
 			{
 				++tests;
