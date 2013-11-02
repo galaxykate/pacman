@@ -8,6 +8,7 @@ import edu.ucsc.gameAI.GoAction;
 import edu.ucsc.gameAI.GoNearestInnerPill;
 import edu.ucsc.gameAI.GoNearestPill;
 import edu.ucsc.gameAI.GoNearestPowerPill;
+import edu.ucsc.gameAI.IAction;
 import edu.ucsc.gameAI.ReduceThreat;
 import edu.ucsc.gameAI.conditions.AverageEdibleTime;
 import edu.ucsc.gameAI.conditions.CurrentLevelTime;
@@ -16,6 +17,7 @@ import edu.ucsc.gameAI.conditions.PacmanThreat;
 import edu.ucsc.gameAI.conditions.PowerPillDistanceToPacman;
 import edu.ucsc.gameAI.conditions.ShortestPathIsSafe;
 import edu.ucsc.gameAI.decisionTrees.binary.BinaryDecision;
+import edu.ucsc.gameAI.decisionTrees.binary.IBinaryNode;
 import pacman.controllers.Controller;
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;
@@ -72,7 +74,7 @@ public class KatesPacMan extends Controller<MOVE> {
 		test.setCondition(new PacmanThreat(threatMap, .3f, 1000));
 		test.setTrueBranch(new GoNearestPill());
 		test.setFalseBranch(new GoNearestInnerPill());
-	//	test.setTrueBranch(new ReduceThreat(threatMap));
+		// test.setTrueBranch(new ReduceThreat(threatMap));
 
 		startNode = areEdible;
 		startNode = test;
@@ -146,10 +148,15 @@ public class KatesPacMan extends Controller<MOVE> {
 
 		int x = game.getNodeXCood(pacNode);
 		int y = game.getNodeYCood(pacNode);
-		//System.out.println(x + " " + y);
+		// System.out.println(x + " " + y);
+
+		MOVE move = MOVE.NEUTRAL;
 
 		// GameView.addLines(game, color, fromNnodeIndex, toNodeIndex);
-		MOVE move = startNode.makeDecision(game).getMove(game);
+		IAction terminal = startNode.makeDecision(game);
+		if (terminal != null)
+			move = terminal.getMove(game);
+
 		MOVE last = game.getPacmanLastMoveMade();
 		if (move != last) {
 			if (changePower < 1) {
@@ -159,7 +166,7 @@ public class KatesPacMan extends Controller<MOVE> {
 				changePower = 0;
 			}
 		}
-		//System.out.println(move);
+		// System.out.println(move);
 		return move;
 
 	}

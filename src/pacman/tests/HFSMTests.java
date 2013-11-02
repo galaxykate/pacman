@@ -52,6 +52,7 @@ public class HFSMTests {
 	public HFSMTests()
 	{
 		
+		
 		//create hfsm
 		hfsm = new HFSM();
 		upIsUp = new HFSM();
